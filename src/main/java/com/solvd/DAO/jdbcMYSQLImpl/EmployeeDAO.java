@@ -1,24 +1,21 @@
 package com.solvd.DAO.jdbcMYSQLImpl;
 
-import com.solvd.DAO.IEntityDAO;
+import com.solvd.DAO.IEmployeeDAO;
+import com.solvd.staff.Employee;
 
-public class EmployeeDAO implements IEntityDAO {
-    public EmployeeDAO() {
-        super();
-    }
-
+public class EmployeeDAO implements IEmployeeDAO {
     @Override
-    public void addEntity(Object entity) {
-
-    }
-
-    @Override
-    public Object getEntity(long id) {
+    public Employee getEntityById(long id) {
         return null;
     }
 
     @Override
-    public void updateEntity(Object entity) {
+    public void saveEntity(Employee entity) {
+
+    }
+
+    @Override
+    public void updateEntity(Employee entity) {
 
     }
 

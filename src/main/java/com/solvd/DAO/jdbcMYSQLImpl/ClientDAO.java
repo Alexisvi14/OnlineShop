@@ -1,19 +1,22 @@
 package com.solvd.DAO.jdbcMYSQLImpl;
 
-import com.solvd.DAO.IEntityDAO;
+import com.solvd.DAO.IClientDAO;
+import com.solvd.clientRelated.Client;
 
-public class ClientDAO implements IEntityDAO<ClientDAO> {
-    @Override
-    public void addEntity(ClientDAO entity) {
-    }
 
+public class ClientDAO implements IClientDAO {
     @Override
-    public ClientDAO getEntity(long id) {
+    public Client getEntityById(long id) {
         return null;
     }
 
     @Override
-    public void updateEntity(ClientDAO entity) {
+    public void saveEntity(Client entity) {
+
+    }
+
+    @Override
+    public void updateEntity(Client entity) {
 
     }
 

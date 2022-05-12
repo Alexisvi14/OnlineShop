@@ -1,4 +1,6 @@
 package com.solvd.DAO;
 
-public interface IEmployeeDAO extends IBaseDAO{
+import com.solvd.staff.Employee;
+
+public interface IEmployeeDAO extends IBaseDAO <Employee> {
 }

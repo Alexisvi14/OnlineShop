@@ -1,20 +1,21 @@
 package com.solvd.DAO.jdbcMYSQLImpl;
 
-import com.solvd.DAO.IEntityDAO;
+import com.solvd.DAO.ITruckDAO;
+import com.solvd.shop.Truck;
 
-public class TruckDAO implements IEntityDAO {
+public class TruckDAO implements ITruckDAO {
     @Override
-    public void addEntity(Object entity) {
-
-    }
-
-    @Override
-    public Object getEntity(long id) {
+    public Truck getEntityById(long id) {
         return null;
     }
 
     @Override
-    public void updateEntity(Object entity) {
+    public void saveEntity(Truck entity) {
+
+    }
+
+    @Override
+    public void updateEntity(Truck entity) {
 
     }
 

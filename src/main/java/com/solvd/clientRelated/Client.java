@@ -9,6 +9,7 @@ public class Client {
     private Account account;
     private double npi;
     private String email;
+    private Appointment appointment;
 
     public Client(long id, String firstName, String lastName, Account account, double npi) {
         this.id = id;
@@ -16,6 +17,14 @@ public class Client {
         this.lastName = lastName;
         this.account = account;
         this.npi = npi;
+    }
+
+    public Appointment getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
     }
 
     public long getId() {

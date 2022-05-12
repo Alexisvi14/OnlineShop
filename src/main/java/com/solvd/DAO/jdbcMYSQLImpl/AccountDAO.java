@@ -1,19 +1,22 @@
 package com.solvd.DAO.jdbcMYSQLImpl;
 
-import com.solvd.DAO.IEntityDAO;
+import com.solvd.DAO.IAccountDAO;
+import com.solvd.accounts.Account;
 
-public class AccountDAO implements IEntityDAO <AccountDAO> {
+public class AccountDAO implements IAccountDAO {
     @Override
-    public void addEntity(AccountDAO entity) {
-    }
-
-    @Override
-    public AccountDAO getEntity(long id) {
+    public Account getEntityById(long id) {
         return null;
     }
 
     @Override
-    public void updateEntity(AccountDAO entity) {
+    public void saveEntity(Account entity) {
+
+    }
+
+    @Override
+    public void updateEntity(Account entity) {
+
     }
 
     @Override

@@ -1,19 +1,22 @@
 package com.solvd.DAO.jdbcMYSQLImpl;
 
-import com.solvd.DAO.IEntityDAO;
+import com.solvd.DAO.IAppointmentDAO;
+import com.solvd.clientRelated.Appointment;
 
-public class AppointmentDAO implements IEntityDAO <AppointmentDAO> {
+public class AppointmentDAO implements IAppointmentDAO {
     @Override
-    public void addEntity(AppointmentDAO entity) {
-    }
-
-    @Override
-    public AppointmentDAO getEntity(long id) {
+    public Appointment getEntityById(long id) {
         return null;
     }
 
     @Override
-    public void updateEntity(AppointmentDAO entity) {
+    public void saveEntity(Appointment entity) {
+
+    }
+
+    @Override
+    public void updateEntity(Appointment entity) {
+
     }
 
     @Override

@@ -1,26 +1,127 @@
 package com.solvd.DAO.jdbcMYSQLImpl;
 
 import com.solvd.DAO.ICardDAO;
-import com.solvd.accounts.Card;
+import com.solvd.bin.accounts.Card;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class CardDAO implements ICardDAO {
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class CardDAO extends AbstractDAO implements ICardDAO {
+    private final static Logger LOGGER = LogManager.getLogger(CardDAO.class);
+    private final static String SELECT_CARD_BY_ID = "SELECT * FROM Cards WHERE idCards=?";
+    private final static String DELETE_CARD_BY_ID = "DELETE FROM Cards WHERE idCards=?";
+
     @Override
     public Card getEntityById(long id) {
-        return null;
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        Connection con = getConnection();
+        try {
+            pr = con.prepareStatement(SELECT_CARD_BY_ID);
+            pr.setLong(1, id);
+            rs = pr.executeQuery();
+            Card card = new Card();
+            rs.next();
+            card.setId(Integer.parseInt(rs.getString("idCards")));
+            card.setNumber(Integer.parseInt(rs.getString("number")));
+
+            return card;
+        } catch (SQLException e) {
+            LOGGER.error("There was a problem while doing the statement");
+            throw new RuntimeException(e);
+        } finally {
+            returnConnection(con);
+            try {
+                if (pr != null)
+                    pr.close();
+                if (rs != null)
+                    rs.close();
+            } catch (SQLException e) {
+                LOGGER.error("Exception while closing", e);
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override
     public void saveEntity(Card entity) {
+        PreparedStatement pr = null;
+        Connection con = getConnection();
+        double id = entity.getId();
+        int number = entity.getNumber();
 
+        try{
+            String query = "INSERT INTO Cards (id,number) VALUES (" + id + "," + number + ")";
+            pr = con.prepareStatement(query);
+            pr.execute();
+        } catch (SQLException e) {
+            LOGGER.error("There was a problem while doing the statement");
+            throw new RuntimeException(e);
+        }
+        finally {
+            returnConnection(con);
+            try {
+                if (pr != null)
+                    pr.close();
+            } catch (SQLException e) {
+                LOGGER.error("Exception while closing", e);
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override
     public void updateEntity(Card entity) {
+        PreparedStatement pr = null;
+        Connection con = getConnection();
+        long id = entity.getId();
+        int number = entity.getNumber();
 
+        try{
+            String query = "UPDATE Cards SET idCards=" + id + "number=" + number + "WHERE idCards=?";
+            pr = con.prepareStatement(query);
+            pr.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error("There was a problem while doing the statement");
+            throw new RuntimeException(e);
+        }
+        finally {
+            returnConnection(con);
+            try{
+                if (pr != null)
+                    pr.close();
+            } catch (SQLException e) {
+                LOGGER.error("Exception while closing", e);
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override
     public void removeEntity(long id) {
-
+        PreparedStatement pr = null;
+        Connection con = getConnection();
+        try {
+            pr = con.prepareStatement(DELETE_CARD_BY_ID);
+            pr.setLong(1, id);
+            pr.execute();
+        } catch (SQLException e) {
+            LOGGER.error("There was a problem while doing the statement");
+            throw new RuntimeException(e);
+        }
+        finally {
+            returnConnection(con);
+            try{
+                if (pr != null)
+                    pr.close();
+            } catch (SQLException e) {
+                LOGGER.error("Exception while closing", e);
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

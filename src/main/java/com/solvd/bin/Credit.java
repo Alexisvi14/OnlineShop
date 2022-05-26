@@ -1,4 +1,4 @@
-package com.solvd.bin.accounts;
+package com.solvd.bin;
 
 import java.util.Objects;
 

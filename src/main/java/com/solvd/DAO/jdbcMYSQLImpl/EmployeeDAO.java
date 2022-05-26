@@ -1,7 +1,7 @@
 package com.solvd.DAO.jdbcMYSQLImpl;
 
 import com.solvd.DAO.IEmployeeDAO;
-import com.solvd.bin.staff.Employee;
+import com.solvd.bin.Employee;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -1,7 +1,7 @@
 package com.solvd.DAO.jdbcMYSQLImpl;
 
 import com.solvd.DAO.IPaymentDAO;
-import com.solvd.bin.accounts.Payment;
+import com.solvd.bin.Payment;
 
 public class PaymentDAO implements IPaymentDAO {
     @Override

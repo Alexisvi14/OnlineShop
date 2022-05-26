@@ -1,7 +1,7 @@
 package com.solvd.DAO.jdbcMYSQLImpl;
 
 import com.solvd.DAO.IClientDAO;
-import com.solvd.bin.clientRelated.Client;
+import com.solvd.bin.Client;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

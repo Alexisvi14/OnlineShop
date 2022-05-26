@@ -1,4 +1,7 @@
-package com.solvd.bin.clientRelated;
+package com.solvd.bin;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -6,8 +9,12 @@ import java.util.Objects;
 
 
 public class Appointment {
+    @JsonProperty
     private long id;
+    @JsonProperty
+    @JsonFormat(shape =JsonFormat.Shape.STRING, pattern = "mm/dd/yyyy")
     private LocalDate date;
+    @JsonProperty
     private LocalTime time;
 
     public Appointment() {

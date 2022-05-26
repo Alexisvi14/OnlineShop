@@ -1,14 +1,14 @@
-package com.solvd.bin.accounts;
+package com.solvd.bin;
 
 import java.util.Objects;
 
-public class Card {
+public class Payment {
     private long id;
-    private int number;
+    private double money;
 
-    public Card() {
+    public Payment(long id, double money) {
         this.id = id;
-        this.number = number;
+        this.money = money;
     }
 
     public long getId() {
@@ -19,32 +19,32 @@ public class Card {
         this.id = id;
     }
 
-    public int getNumber() {
-        return number;
+    public double getMoney() {
+        return money;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setMoney(double money) {
+        this.money = money;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Card card = (Card) o;
-        return id == card.id && number == card.number;
+        Payment payment = (Payment) o;
+        return id == payment.id && Double.compare(payment.money, money) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, number);
+        return Objects.hash(id, money);
     }
 
     @Override
     public String toString() {
-        return "Card{" +
+        return "Payment{" +
                 "id=" + id +
-                ", number=" + number +
+                ", money=" + money +
                 '}';
     }
 }

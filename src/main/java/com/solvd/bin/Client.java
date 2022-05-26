@@ -1,16 +1,22 @@
-package com.solvd.bin.clientRelated;
+package com.solvd.bin;
 
-import com.solvd.bin.accounts.Account;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 
 public class Client {
     private long id;
+    @JsonProperty("fName")
     private String firstName;
+    @JsonProperty("lName")
     private String lastName;
+    @JsonProperty
     private Account account;
+    @JsonProperty
     private double npi;
+    @JsonProperty
     private String email;
+    @JsonProperty
     private Appointment appointment;
 
     public Client() {
@@ -20,6 +26,8 @@ public class Client {
         this.account = account;
         this.npi = npi;
     }
+
+
 
     public Appointment getAppointment() {
         return appointment;
@@ -82,7 +90,7 @@ public class Client {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-        return id == client.id && Double.compare(client.npi, npi) == 0 && firstName.equals(client.firstName) && lastName.equals(client.lastName) && account.equals(client.account) && email.equals(client.email) && appointment.equals(client.appointment);
+        return id == client.id && Double.compare(client.npi, npi) == 0 && Objects.equals(firstName, client.firstName) && Objects.equals(lastName, client.lastName) && Objects.equals(account, client.account) && Objects.equals(email, client.email) && Objects.equals(appointment, client.appointment);
     }
 
     @Override

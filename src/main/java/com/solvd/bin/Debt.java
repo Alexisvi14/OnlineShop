@@ -1,12 +1,12 @@
-package com.solvd.bin.accounts;
+package com.solvd.bin;
 
 import java.util.Objects;
 
-public class Payment {
+public class Debt {
     private long id;
     private double money;
 
-    public Payment(long id, double money) {
+    public Debt(long id, double money) {
         this.id = id;
         this.money = money;
     }
@@ -31,8 +31,8 @@ public class Payment {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Payment payment = (Payment) o;
-        return id == payment.id && Double.compare(payment.money, money) == 0;
+        Debt debt = (Debt) o;
+        return id == debt.id && Double.compare(debt.money, money) == 0;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Payment {
 
     @Override
     public String toString() {
-        return "Payment{" +
+        return "Debt{" +
                 "id=" + id +
                 ", money=" + money +
                 '}';

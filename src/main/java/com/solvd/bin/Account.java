@@ -1,16 +1,26 @@
-package com.solvd.bin.accounts;
+package com.solvd.bin;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 import java.util.Objects;
 
 public class Account {
+    @JsonProperty
     private long id;
+    @JsonProperty
     private double balance;
+    @JsonProperty
     private double cbu;
+    @JsonProperty("card")
     private List<Card> cards;
+    @JsonProperty("credit")
     private List<Credit> credits;
+    @JsonProperty("debt")
     private List<Debt> debts;
+    @JsonProperty("discount")
     private List<Discount> discounts;
+    @JsonProperty("payment")
     private List<Payment> payments;
 
     public Account() {

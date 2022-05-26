@@ -1,14 +1,12 @@
-package com.solvd.bin.accounts;
+package com.solvd.bin;
 
 import java.util.Objects;
 
-public class Debt {
+public class Truck {
     private long id;
-    private double money;
+    private Provider provider;
 
-    public Debt(long id, double money) {
-        this.id = id;
-        this.money = money;
+    public Truck() {
     }
 
     public long getId() {
@@ -19,32 +17,32 @@ public class Debt {
         this.id = id;
     }
 
-    public double getMoney() {
-        return money;
+    public Provider getProvider() {
+        return provider;
     }
 
-    public void setMoney(double money) {
-        this.money = money;
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Debt debt = (Debt) o;
-        return id == debt.id && Double.compare(debt.money, money) == 0;
+        Truck truck = (Truck) o;
+        return id == truck.id && provider.equals(truck.provider);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, money);
+        return Objects.hash(id, provider);
     }
 
     @Override
     public String toString() {
-        return "Debt{" +
+        return "Truck{" +
                 "id=" + id +
-                ", money=" + money +
+                ", provider=" + provider +
                 '}';
     }
 }

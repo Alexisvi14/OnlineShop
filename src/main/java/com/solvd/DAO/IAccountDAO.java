@@ -1,6 +1,6 @@
 package com.solvd.DAO;
 
-import com.solvd.bin.accounts.Account;
+import com.solvd.bin.Account;
 
 public interface IAccountDAO extends IBaseDAO <Account> {
 }

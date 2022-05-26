@@ -1,12 +1,15 @@
-package com.solvd.bin.shop;
-
-import com.solvd.bin.staff.Provider;
+package com.solvd.bin;
 
 import java.util.Objects;
 
-public class Truck {
+public class Card {
     private long id;
-    private Provider provider;
+    private int number;
+
+    public Card() {
+        this.id = id;
+        this.number = number;
+    }
 
     public long getId() {
         return id;
@@ -16,32 +19,32 @@ public class Truck {
         this.id = id;
     }
 
-    public Provider getProvider() {
-        return provider;
+    public int getNumber() {
+        return number;
     }
 
-    public void setProvider(Provider provider) {
-        this.provider = provider;
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Truck truck = (Truck) o;
-        return id == truck.id && provider.equals(truck.provider);
+        Card card = (Card) o;
+        return id == card.id && number == card.number;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, provider);
+        return Objects.hash(id, number);
     }
 
     @Override
     public String toString() {
-        return "Truck{" +
+        return "Card{" +
                 "id=" + id +
-                ", provider=" + provider +
+                ", number=" + number +
                 '}';
     }
 }

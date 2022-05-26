@@ -1,14 +1,14 @@
-package com.solvd.bin.accounts;
+package com.solvd.bin;
 
 import java.util.Objects;
 
 public class Discount {
     private long id;
-    private Discount discount;
+    private int percentage;
 
-    public Discount(long id, Discount discount) {
+    public Discount(long id, int percentage) {
         this.id = id;
-        this.discount = discount;
+        this.percentage = percentage;
     }
 
     public long getId() {
@@ -19,32 +19,32 @@ public class Discount {
         this.id = id;
     }
 
-    public Discount getDiscount() {
-        return discount;
+    public int getPercentage() {
+        return percentage;
     }
 
-    public void setDiscount(Discount discount) {
-        this.discount = discount;
+    public void setPercentage(int percentage) {
+        this.percentage = percentage;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Discount discount1 = (Discount) o;
-        return id == discount1.id && Objects.equals(discount, discount1.discount);
+        Discount discount = (Discount) o;
+        return id == discount.id && percentage == discount.percentage;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, discount);
+        return Objects.hash(id, percentage);
     }
 
     @Override
     public String toString() {
         return "Discount{" +
                 "id=" + id +
-                ", discount=" + discount +
+                ", percentage=" + percentage +
                 '}';
     }
 }

@@ -1,14 +1,25 @@
-package com.solvd.bin.staff.administrative;
+package com.solvd.bin;
 
 import java.util.Objects;
 
-public class Owner {
+public class Assistant {
+
+    private Long id;
     private String firstName;
     private String lastName;
 
-    public Owner(String firstName, String lastName) {
+    public Assistant(Long id, String firstName, String lastName) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -31,19 +42,20 @@ public class Owner {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Owner owner = (Owner) o;
-        return firstName.equals(owner.firstName) && lastName.equals(owner.lastName);
+        Assistant assistant = (Assistant) o;
+        return Objects.equals(id, assistant.id) && Objects.equals(firstName, assistant.firstName) && Objects.equals(lastName, assistant.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName);
+        return Objects.hash(id, firstName, lastName);
     }
 
     @Override
     public String toString() {
-        return "Owner{" +
-                "firstName='" + firstName + '\'' +
+        return "Assistant{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
     }

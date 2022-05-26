@@ -1,6 +1,6 @@
 package com.solvd.DAO;
 
-import com.solvd.bin.clientRelated.Appointment;
+import com.solvd.bin.Appointment;
 
 public interface IAppointmentDAO extends IBaseDAO <Appointment> {
 }

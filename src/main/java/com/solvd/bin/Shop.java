@@ -1,4 +1,4 @@
-package com.solvd.bin.shop;
+package com.solvd.bin;
 
 import java.util.Objects;
 

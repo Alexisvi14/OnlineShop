@@ -12,8 +12,10 @@ import java.sql.SQLException;
 
 public class EmployeeDAO extends AbstractDAO implements IEmployeeDAO {
     private final static Logger LOGGER = LogManager.getLogger(EmployeeDAO.class);
-    private final static String SELECT_EMPLOYEE_BY_ID = "SELECT * FROM Employees WHERE idEmployees=?";
-    private final static String DELETE_EMPLOYEE_BY_ID = "DELETE FROM Employees WHERE idEmployees=?";
+    private final static String INSERT = "INSERT INTO Employees (first_name, last_name, salary, idShops) VALUES (?,?,?,?) WHERE id=?";
+    private final static String UPDATE = "UPDATE Employees SET first_name=?,last_name=?,salary=?,idShops=?, WHERE idEmployees=?";
+    private final static String SELECT = "SELECT * FROM Employees WHERE idEmployees=?";
+    private final static String DELETE = "DELETE FROM Employees WHERE idEmployees=?";
 
     @Override
     public Employee getEntityById(long id) {
@@ -21,7 +23,7 @@ public class EmployeeDAO extends AbstractDAO implements IEmployeeDAO {
         ResultSet rs = null;
         Connection con = getConnection();
         try{
-            pr = con.prepareStatement(SELECT_EMPLOYEE_BY_ID);
+            pr = con.prepareStatement(SELECT);
             pr.setLong(1, id);
             rs = pr.executeQuery();
             Employee employee = new Employee();
@@ -59,9 +61,7 @@ public class EmployeeDAO extends AbstractDAO implements IEmployeeDAO {
         double salary = entity.getSalary();
 
         try {
-            String query = "INSERT INTO Employees (first_Name,last_Name,salary) VALUES (" + firstName.toString() +
-                    "," + lastName.toString() + "," + salary + ")";
-            pr = con.prepareStatement(query);
+            pr = con.prepareStatement(INSERT);
             pr.execute();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
@@ -88,9 +88,7 @@ public class EmployeeDAO extends AbstractDAO implements IEmployeeDAO {
         double salary = entity.getSalary();
 
         try {
-            String query = "UPDATE Employees SET first_Name=" + firstName.toString() + "last_Name=" +
-                    lastName.toString() + "salary=" + salary + "WHERE idEmployees=?";
-            pr = con.prepareStatement(query);
+            pr = con.prepareStatement(UPDATE);
             pr.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
@@ -114,7 +112,7 @@ public class EmployeeDAO extends AbstractDAO implements IEmployeeDAO {
         Connection con = getConnection();
 
         try {
-            pr = con.prepareStatement(DELETE_EMPLOYEE_BY_ID);
+            pr = con.prepareStatement(DELETE);
             pr.setLong(1, id);
             pr.execute();
         } catch (SQLException e) {

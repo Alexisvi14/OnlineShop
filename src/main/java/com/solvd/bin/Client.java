@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 public class Client {
+    @JsonProperty
     private long id;
     @JsonProperty("fName")
     private String firstName;
@@ -20,14 +21,17 @@ public class Client {
     private Appointment appointment;
 
     public Client() {
+    }
+
+    public Client(long id, String firstName, String lastName, Account account, double npi, String email, Appointment appointment) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.account = account;
         this.npi = npi;
+        this.email = email;
+        this.appointment = appointment;
     }
-
-
 
     public Appointment getAppointment() {
         return appointment;

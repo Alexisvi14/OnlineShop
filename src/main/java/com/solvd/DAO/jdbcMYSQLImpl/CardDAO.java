@@ -12,8 +12,10 @@ import java.sql.SQLException;
 
 public class CardDAO extends AbstractDAO implements ICardDAO {
     private final static Logger LOGGER = LogManager.getLogger(CardDAO.class);
-    private final static String SELECT_CARD_BY_ID = "SELECT * FROM Cards WHERE idCards=?";
-    private final static String DELETE_CARD_BY_ID = "DELETE FROM Cards WHERE idCards=?";
+    private final static String INSERT = "INSERT INTO Cards (number, idAccounts) VALUES (?,?) WHERE id=?";
+    private final static String UPDATE = "UPDATE Cards SET number=?,idAccounts=?, WHERE idCards=?";
+    private final static String SELECT = "SELECT * FROM Cards WHERE idCards=?";
+    private final static String DELETE = "DELETE FROM Cards WHERE idCards=?";
 
     @Override
     public Card getEntityById(long id) {
@@ -21,7 +23,7 @@ public class CardDAO extends AbstractDAO implements ICardDAO {
         ResultSet rs = null;
         Connection con = getConnection();
         try {
-            pr = con.prepareStatement(SELECT_CARD_BY_ID);
+            pr = con.prepareStatement(SELECT);
             pr.setLong(1, id);
             rs = pr.executeQuery();
             Card card = new Card();
@@ -55,8 +57,7 @@ public class CardDAO extends AbstractDAO implements ICardDAO {
         int number = entity.getNumber();
 
         try{
-            String query = "INSERT INTO Cards (id,number) VALUES (" + id + "," + number + ")";
-            pr = con.prepareStatement(query);
+            pr = con.prepareStatement(INSERT);
             pr.execute();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
@@ -82,8 +83,7 @@ public class CardDAO extends AbstractDAO implements ICardDAO {
         int number = entity.getNumber();
 
         try{
-            String query = "UPDATE Cards SET idCards=" + id + "number=" + number + "WHERE idCards=?";
-            pr = con.prepareStatement(query);
+            pr = con.prepareStatement(UPDATE);
             pr.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
@@ -106,7 +106,7 @@ public class CardDAO extends AbstractDAO implements ICardDAO {
         PreparedStatement pr = null;
         Connection con = getConnection();
         try {
-            pr = con.prepareStatement(DELETE_CARD_BY_ID);
+            pr = con.prepareStatement(DELETE);
             pr.setLong(1, id);
             pr.execute();
         } catch (SQLException e) {

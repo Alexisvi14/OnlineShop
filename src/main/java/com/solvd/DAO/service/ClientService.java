@@ -1,5 +1,10 @@
 package com.solvd.DAO.service;
 
+import com.solvd.bin.Client;
+
 public interface ClientService {
-    int getClient();
+    Client getClient(long id);
+    void saveClient(Client client);
+    void update(Client client);
+    void delete(long id);
 }

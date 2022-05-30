@@ -3,8 +3,8 @@ package com.solvd.bin;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.sql.Time;
+import java.util.Date;
 import java.util.Objects;
 
 
@@ -13,14 +13,17 @@ public class Appointment {
     private long id;
     @JsonProperty
     @JsonFormat(shape =JsonFormat.Shape.STRING, pattern = "mm/dd/yyyy")
-    private LocalDate date;
+    private Date date;
     @JsonProperty
-    private LocalTime time;
+    private Time time;
 
-    public Appointment() {
+    public Appointment(long id, Date date, Time time) {
         this.id = id;
         this.date = date;
         this.time = time;
+    }
+
+    public Appointment() {
     }
 
     public long getId() {
@@ -31,19 +34,19 @@ public class Appointment {
         this.id = id;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public LocalTime getTime() {
+    public Time getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(Time time) {
         this.time = time;
     }
 

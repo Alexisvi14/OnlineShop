@@ -11,6 +11,9 @@ public class Discount {
         this.percentage = percentage;
     }
 
+    public Discount() {
+    }
+
     public long getId() {
         return id;
     }

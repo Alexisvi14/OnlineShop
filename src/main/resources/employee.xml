@@ -1,0 +1,6 @@
+<employee id = '10'>
+        <fname>Lucas</fname>
+        <lname>Geller</lname>
+        <dob>12/06/1995</dob>
+        <salary>2500</salary>
+</employee>

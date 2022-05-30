@@ -13,8 +13,10 @@ import java.sql.SQLException;
 
 public class ClientDAO extends AbstractDAO implements IClientDAO {
     private final static Logger LOGGER = LogManager.getLogger(ClientDAO.class);
-    private final static String SELECT_CLIENT_BY_ID = "SELECT * FROM Clients WHERE idClients=?";
-    private final static String DELETE_CLIENT_BY_ID = "DELETE FROM Clients WHERE idClients=?";
+    private final static String INSERT = "INSERT INTO Clients (first_name, last_name, npi, email) VALUES (?,?,?,?) WHERE id=?";
+    private final static String UPDATE = "UPDATE Clients SET first_name=?,last_name=?,npi=?,email=?, WHERE idClients=?";
+    private final static String SELECT = "SELECT * FROM Clients WHERE idClients=?";
+    private final static String DELETE = "DELETE FROM Clients WHERE idClients=?";
 
     @Override
     public Client getEntityById(long id) {
@@ -22,15 +24,16 @@ public class ClientDAO extends AbstractDAO implements IClientDAO {
         ResultSet rs = null;
         Connection con = getConnection();
         try{
-            pr = con.prepareStatement(SELECT_CLIENT_BY_ID);
+            pr = con.prepareStatement(SELECT);
             pr.setLong(1, id);
             rs = pr.executeQuery();
             Client client = new Client();
             rs.next();
             client.setId(Integer.parseInt(rs.getString("idClients")));
-            client.setFirstName(rs.getString("firstName"));
-            client.setLastName(rs.getString("lastName"));
+            client.setFirstName(rs.getString("first_name"));
+            client.setLastName(rs.getString("last_name"));
             client.setNpi(Integer.parseInt(rs.getString("npi")));
+            client.setEmail(rs.getString("email"));
 
             return client;
         } catch (SQLException e) {
@@ -58,10 +61,10 @@ public class ClientDAO extends AbstractDAO implements IClientDAO {
         String firstName = entity.getFirstName();
         String lastName = entity.getLastName();
         double npi = entity.getNpi();
+        String email = entity.getEmail();
+
         try{
-            String query = "INSERT INTO Clients (first_Name,last_Name,npi) VALUES (" + firstName.toString() + "," +
-                    lastName.toString() + "," + npi + ")";
-            pr = con.prepareStatement(query);
+            pr = con.prepareStatement(INSERT);
             pr.execute();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
@@ -87,10 +90,10 @@ public class ClientDAO extends AbstractDAO implements IClientDAO {
         String firstName = entity.getFirstName();
         String lastName = entity.getLastName();
         double npi = entity.getNpi();
+        String email = entity.getEmail();
+
         try{
-            String query = "UPDATE Clients SET first_name=" + firstName + "last_name=" + lastName + "npi="
-                    + npi + "WHERE idClients=?";
-            pr = con.prepareStatement(query);
+            pr = con.prepareStatement(UPDATE);
             pr.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement", e);
@@ -114,7 +117,7 @@ public class ClientDAO extends AbstractDAO implements IClientDAO {
         PreparedStatement pr = null;
         Connection con = getConnection();
         try{
-            pr = con.prepareStatement(DELETE_CLIENT_BY_ID);
+            pr = con.prepareStatement(DELETE);
             pr.setLong(1, id);
             pr.execute();
         } catch (SQLException e) {

@@ -6,9 +6,13 @@ public class Card {
     private long id;
     private int number;
 
-    public Card() {
+    public Card(long id, int number) {
         this.id = id;
         this.number = number;
+    }
+
+    public Card() {
+
     }
 
     public long getId() {

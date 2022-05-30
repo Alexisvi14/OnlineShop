@@ -5,17 +5,18 @@ import com.solvd.bin.Appointment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
 public class AppointmentDAO extends AbstractDAO implements IAppointmentDAO {
     private final static Logger LOGGER = LogManager.getLogger(AppointmentDAO.class);
-    private final static String SELECT_APPOINTMENT_BY_ID = "SELECT * FROM Appointments WHERE idAppointments=?";
-    private final static String DELETE_APPOINTMENT_BY_ID = "DELETE FROM Appointments WHERE idAppointments=?";
+    private final static String INSERT = "INSERT INTO Appointments (date, time, idClients) VALUES (?,?,?) WHERE id=?";
+    private final static String UPDATE = "UPDATE Appointments SET date=?,time=?,idClients=?, WHERE idAppointments=?";
+    private final static String SELECT = "SELECT * FROM Appointments WHERE idAppointments=?";
+    private final static String DELETE = "DELETE FROM Appointments WHERE idAppointments=?";
 
     @Override
     public Appointment getEntityById(long id) {
@@ -24,14 +25,14 @@ public class AppointmentDAO extends AbstractDAO implements IAppointmentDAO {
         Connection con = getConnection();
 
         try{
-            pr = con.prepareStatement(SELECT_APPOINTMENT_BY_ID);
+            pr = con.prepareStatement(SELECT);
             pr.setLong(1, id);
             rs = pr.executeQuery();
             Appointment appointment = new Appointment();
             rs.next();
             appointment.setId(Integer.parseInt(rs.getString("id")));
-            appointment.setDate(LocalDate.ofEpochDay(Integer.parseInt(rs.getString("date"))));
-            appointment.setTime(LocalTime.ofSecondOfDay(Integer.parseInt(rs.getString("time"))));
+            appointment.setDate(Date.from(Instant.parse(rs.getString("date"))));
+            appointment.setTime(Time.valueOf(rs.getString("time")));
 
             return appointment;
         } catch (SQLException e) {
@@ -57,13 +58,11 @@ public class AppointmentDAO extends AbstractDAO implements IAppointmentDAO {
         PreparedStatement pr = null;
         Connection con = getConnection();
         long id = entity.getId();
-        LocalTime time = entity.getTime();
-        LocalDate date = entity.getDate();
+        Date date = entity.getDate();
+        Time time = entity.getTime();
 
         try{
-            String query = "INSERT INTO Appointment (id,time,date) VALUES (" + id + "," + time.toString() + ","
-                    + date.toString() + ")";
-            pr = con.prepareStatement(query);
+            pr = con.prepareStatement(INSERT);
             pr.execute();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
@@ -86,13 +85,11 @@ public class AppointmentDAO extends AbstractDAO implements IAppointmentDAO {
         PreparedStatement pr = null;
         Connection con = getConnection();
         long id = entity.getId();
-        LocalTime time = entity.getTime();
-        LocalDate date = entity.getDate();
+        Date date = entity.getDate();
+        Time time = entity.getTime();
 
         try {
-            String query = "UPDATE Appointments SET id=" + id + "time=" + time.toString() + "date=" +
-                    date.toString() + "WHERE idAppointments=?";
-            pr = con.prepareStatement(query);
+            pr = con.prepareStatement(UPDATE);
             pr.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
@@ -116,7 +113,7 @@ public class AppointmentDAO extends AbstractDAO implements IAppointmentDAO {
         Connection con = getConnection();
 
         try{
-            pr = con.prepareStatement(DELETE_APPOINTMENT_BY_ID);
+            pr = con.prepareStatement(DELETE);
             pr.setLong(1, id);
             pr.execute();
         } catch (SQLException e) {

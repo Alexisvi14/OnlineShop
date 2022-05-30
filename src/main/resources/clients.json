@@ -1,36 +1,49 @@
- {
-    "fName" : "Joey",
-    "lName" : "Tribbiani",
-    "npi" : "39318541",
-    "email" : "joey@gmail.com",
-    "appointment" : {
+ [
+   {
+     "id" : 17,
+     "fName" : "Joey",
+     "lName" : "Tribbiani",
+     "npi" : "39318541",
+     "email" : "joey@gmail.com",
+     "appointment" : {
         "id" : "15",
         "date" : "06/11/2022",
-        "time" : "06-11-2022 10:00:00"
+        "time" : "10:00:00"
       },
-    "account" : {
+     "account" : {
         "id" : 15,
         "balance" : "2000",
         "cbu" : "11111",
-        "card" : {
+        "card" : [
+          {
             "id" : 15,
             "number" : "15151515"
-          },
-        "credit" : {
+          }
+        ],
+        "credit" : [
+          {
             "id" : 15,
             "money" : "3000"
-          },
-        "debt" : {
-            "id" : 15,
-            "money" : "2000"
-          },
-        "discount" : {
-            "id" : 15,
-            "percentage" : "20"
-            },
-        "payment" : {
+          }
+        ],
+        "debt" : [
+          {
             "id" : 15,
             "money" : "2000"
           }
-      }
-    }
+        ],
+        "discount" : [
+          {
+            "id" : 15,
+            "percentage" : "20"
+            }
+        ],
+        "payment" : [
+          {
+            "id" : 15,
+            "money" : "2000"
+          }
+        ]
+     }
+   }
+ ]

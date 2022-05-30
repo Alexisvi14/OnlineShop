@@ -1,5 +1,7 @@
 package com.solvd.DAO;
 
+import java.util.List;
+
 public interface IBaseDAO <T>{
     T getEntityById(long id);
     void saveEntity(T entity);

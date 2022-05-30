@@ -11,6 +11,9 @@ public class Debt {
         this.money = money;
     }
 
+    public Debt() {
+    }
+
     public long getId() {
         return id;
     }

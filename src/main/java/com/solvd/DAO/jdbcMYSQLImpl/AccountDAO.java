@@ -8,12 +8,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 
 public class AccountDAO extends AbstractDAO implements IAccountDAO {
     private final static Logger LOGGER = LogManager.getLogger(AccountDAO.class);
-    private final static String SELECT_ACCOUNT_BY_ID = "SELECT * FROM Accounts WHERE idAccounts=?";
-    private final static String DELETE_ACCOUNT_BY_ID = "DELETE FROM Accounts WHERE idAccounts=?";
+    private final static String INSERT = "INSERT INTO Accounts (balance, cbu) VALUES (?,?) WHERE id=?";
+    private final static String UPDATE = "UPDATE Accounts SET balance=?,cbu=?, WHERE idAccounts=?";
+    private final static String SELECT = "SELECT * FROM Accounts WHERE idAccounts=?";
+    private final static String DELETE = "DELETE FROM Accounts WHERE idAccounts=?";
 
     @Override
     public Account getEntityById(long id) {
@@ -21,7 +24,7 @@ public class AccountDAO extends AbstractDAO implements IAccountDAO {
         ResultSet rs = null;
         Connection con = getConnection();
         try {
-            pr = con.prepareStatement(SELECT_ACCOUNT_BY_ID);
+            pr = con.prepareStatement(SELECT);
             pr.setLong(1, id);
             rs = pr.executeQuery();
             Account account = new Account();
@@ -57,8 +60,7 @@ public class AccountDAO extends AbstractDAO implements IAccountDAO {
         Double cbu = entity.getCbu();
 
         try {
-            String query = "INSERT INTO Account (balance,cbu) VALUES(" + balance.toString() + "," + cbu.toString() + ")";
-            pr = con.prepareStatement(query);
+            pr = con.prepareStatement(INSERT);
             pr.execute();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
@@ -84,9 +86,7 @@ public class AccountDAO extends AbstractDAO implements IAccountDAO {
         Double cbu = entity.getCbu();
 
         try {
-            String query = "UPDATE Accounts SET balance=" + balance.toString() + ",cbu=" + cbu.toString() +
-                    " WHERE idAccounts=?";
-            pr = con.prepareStatement(query);
+            pr = con.prepareStatement(UPDATE);
             pr.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
@@ -109,7 +109,7 @@ public class AccountDAO extends AbstractDAO implements IAccountDAO {
         PreparedStatement pr = null;
         Connection con = getConnection();
         try{
-            pr = con.prepareStatement(DELETE_ACCOUNT_BY_ID);
+            pr = con.prepareStatement(DELETE);
             pr.setLong(1, id);
             pr.execute();
         } catch (SQLException e) {

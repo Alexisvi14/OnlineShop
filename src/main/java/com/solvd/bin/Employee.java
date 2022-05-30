@@ -10,13 +10,13 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
 import java.util.Objects;
 
-@XmlRootElement (name= "user")
+@XmlRootElement (name= "employee")
 public class Employee {
     @XmlAttribute(name="id")
     private long id;
-    @XmlElement(name="fname")
+    @XmlElement(name="fName")
     private String firstName;
-    @XmlElement(name="lname")
+    @XmlElement(name="lName")
     private String lastName;
     @XmlJavaTypeAdapter(DateAdapter.class)
     private Date dob;
@@ -25,11 +25,12 @@ public class Employee {
     @XmlTransient
     private String password;
 
-    public Employee(int id, String firstName, String lastName, Date dob, String password) {
+    public Employee(long id, String firstName, String lastName, Date dob, double salary, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
+        this.salary = salary;
         this.password = password;
     }
 

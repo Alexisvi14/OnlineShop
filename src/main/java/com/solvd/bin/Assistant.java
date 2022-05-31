@@ -14,6 +14,9 @@ public class Assistant {
         this.lastName = lastName;
     }
 
+    public Assistant() {
+    }
+
     public Long getId() {
         return id;
     }

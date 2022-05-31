@@ -2,21 +2,19 @@ package com.solvd.bin;
 
 import com.solvd.util.DateAdapter;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
 import java.util.Objects;
 
 @XmlRootElement (name= "employee")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Employee {
     @XmlAttribute(name="id")
     private long id;
-    @XmlElement(name="fName")
+    @XmlElement(name="fname")
     private String firstName;
-    @XmlElement(name="lName")
+    @XmlElement(name="lname")
     private String lastName;
     @XmlJavaTypeAdapter(DateAdapter.class)
     private Date dob;

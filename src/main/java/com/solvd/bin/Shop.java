@@ -15,6 +15,9 @@ public class Shop {
         this.phoneNumber = phoneNumber;
     }
 
+    public Shop() {
+    }
+
     public long getId() {
         return id;
     }

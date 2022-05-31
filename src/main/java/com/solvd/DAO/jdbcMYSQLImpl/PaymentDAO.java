@@ -28,7 +28,7 @@ public class PaymentDAO extends AbstractDAO implements IPaymentDAO {
             rs = pr.executeQuery();
             Payment payment = new Payment();
             rs.next();
-            payment.setId(Integer.parseInt(rs.getString("id")));
+            payment.setId(Integer.parseInt(rs.getString("idPayments")));
             payment.setMoney(Integer.parseInt(rs.getString("money")));
             payment.setPlace(rs.getString("place"));
 

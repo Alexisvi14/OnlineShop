@@ -28,9 +28,9 @@ public class EmployeeDAO extends AbstractDAO implements IEmployeeDAO {
             rs = pr.executeQuery();
             Employee employee = new Employee();
             rs.next();
-            employee.setId(Integer.parseInt(rs.getString("id")));
-            employee.setFirstName(rs.getString("firstName"));
-            employee.setLastName(rs.getString("lastName"));
+            employee.setId(Integer.parseInt(rs.getString("idEmployees")));
+            employee.setFirstName(rs.getString("first_name"));
+            employee.setLastName(rs.getString("last_name"));
             employee.setSalary(Integer.parseInt(rs.getString("salary")));
 
             return employee;

@@ -30,7 +30,7 @@ public class AppointmentDAO extends AbstractDAO implements IAppointmentDAO {
             rs = pr.executeQuery();
             Appointment appointment = new Appointment();
             rs.next();
-            appointment.setId(Integer.parseInt(rs.getString("id")));
+            appointment.setId(Integer.parseInt(rs.getString("idAppointments")));
             appointment.setDate(Date.from(Instant.parse(rs.getString("date"))));
             appointment.setTime(Time.valueOf(rs.getString("time")));
 

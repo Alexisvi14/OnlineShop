@@ -85,9 +85,6 @@ public class ShopDAO extends AbstractDAO implements IShopDAO {
     public void updateEntity(Shop entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
-        String name = entity.getName();
-        String web_page = entity.getWebPage();
-        int phone_number = entity.getPhoneNumber();
 
         try {
             pr = con.prepareStatement(UPDATE);

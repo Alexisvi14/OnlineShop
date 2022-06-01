@@ -4,7 +4,7 @@ import com.solvd.util.ConnectionPool;
 
 import java.sql.Connection;
 
-public class AbstractDAO {
+public abstract class AbstractDAO {
     public Connection getConnection(){
         return ConnectionPool.getInstance().getConnection();
     }

@@ -54,8 +54,6 @@ public class PaymentDAO extends AbstractDAO implements IPaymentDAO {
     public void saveEntity(Payment entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
-        Double money = entity.getMoney();
-        String place = entity.getPlace();
 
         try {
             pr = con.prepareStatement(INSERT);
@@ -80,8 +78,6 @@ public class PaymentDAO extends AbstractDAO implements IPaymentDAO {
     public void updateEntity(Payment entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
-        Double money = entity.getMoney();
-        String place = entity.getPlace();
 
         try{
             pr = con.prepareStatement(UPDATE);

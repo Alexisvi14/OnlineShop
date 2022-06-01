@@ -1,26 +1,19 @@
 package com.solvd;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.solvd.DAO.service.AccountService;
-import com.solvd.DAO.service.jaxBImpl.EmployeeJaxB;
-import com.solvd.DAO.service.serviceImpl.AccountServiceImpl;
-import com.solvd.DAO.service.serviceImpl.EmployeeServiceImpl;
-import com.solvd.DAO.service.serviceImpl.ShopServiceImpl;
+import com.solvd.service.AccountService;
+import com.solvd.service.jackson.AccountJackson;
+import com.solvd.service.jaxB.EmployeeJaxB;
+import com.solvd.service.serviceImpl.AccountServiceImpl;
+import com.solvd.service.serviceImpl.EmployeeServiceImpl;
+import com.solvd.service.serviceImpl.ShopServiceImpl;
 import com.solvd.bin.Account;
-import com.solvd.bin.Client;
 import com.solvd.bin.Employee;
 import com.solvd.bin.Shop;
-import com.solvd.util.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.List;
 
 
@@ -64,38 +57,36 @@ public class App {
 
         //JaxB... STILL DOES NOT WORK
         EmployeeJaxB jaxbService = new EmployeeJaxB();
-        jaxbService.unmarshall("src/main/resources/employee.xml");
+        Employee employee1 = (Employee) jaxbService.unmarshall("src/main/resources/employee.xml");
 
-        JAXBContext jaxbContext = JAXBContext.newInstance(Employee.class);
-        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-
-        Employee employee1 = (Employee) jaxbUnmarshaller.unmarshal( new File("src/main/resources/employee.xml") );
         LOGGER.info(employee1);
 
-        //JSON//
-        ObjectMapper om = new ObjectMapper();
-        LOGGER.info("Object mapper created");
-        try {
-            JavaType type = om.getTypeFactory().constructCollectionType(List.class, Client.class);
-            LOGGER.info("...");
+        EmployeeJaxB employeeJaxB = new EmployeeJaxB();
+        Employee employee2 = new Employee();
+        employee2.setId(18);
+        employee2.setFirstName("Lucia");
+        employee2.setLastName("Gomez");
+        employee2.setSalary(3200);
+        employeeJaxB.marshall(employee2, "src/main/resources/employee2.xml");
 
-            List clients = om.readValue(new File("src/main/resources/clients.json"), type);
-            LOGGER.info(clients);
+        //JACKSON//
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        AccountJackson accountJackson = new AccountJackson();
+        List client = accountJackson.serializedClient("src/main/resources/clients.json");
+        LOGGER.info(client);
 
-        //Mybatis
+        //MYBATIS
 
-        Connection c = ConnectionPool.getInstance().getConnection();
+        AccountServiceImpl accountService1 = new AccountServiceImpl();
+        LOGGER.info(accountService1.getAccount(3).getCbu());
+
         AccountService accountService = new AccountServiceImpl();
         LOGGER.info(accountService.getAccount(2).toString());
 
 
         try {
             AccountServiceImpl accountMyBatis = new AccountServiceImpl();
-            LOGGER.error(accountMyBatis.getAccount(4).toString());
+            LOGGER.info(accountMyBatis.getAccount(4).toString());
         } catch (Exception e) {
             LOGGER.error(e);
         }

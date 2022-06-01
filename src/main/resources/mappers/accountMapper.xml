@@ -20,12 +20,12 @@
     </update>
     <delete id="removeEntity">
         <![CDATA[
-            Delete from Accounts where id=${account.id}
+            Delete from Accounts where id=${id}
         ]]>
     </delete>
     <select id="getEntityById" resultMap="AccountResultMap">
         <![CDATA[
-            Select * from Accounts where id=${account.id}
+            Select * from Accounts where id=${id}
         ]]>
     </select>
 

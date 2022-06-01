@@ -56,8 +56,6 @@ public class AccountDAO extends AbstractDAO implements IAccountDAO {
     public void saveEntity(Account entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
-        Double balance = entity.getBalance();
-        Double cbu = entity.getCbu();
 
         try {
             pr = con.prepareStatement(INSERT);
@@ -82,8 +80,6 @@ public class AccountDAO extends AbstractDAO implements IAccountDAO {
     public void updateEntity(Account entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
-        Double balance = entity.getBalance();
-        Double cbu = entity.getCbu();
 
         try {
             pr = con.prepareStatement(UPDATE);

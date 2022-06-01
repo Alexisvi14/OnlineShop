@@ -53,8 +53,6 @@ public class CardDAO extends AbstractDAO implements ICardDAO {
     public void saveEntity(Card entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
-        double id = entity.getId();
-        int number = entity.getNumber();
 
         try{
             pr = con.prepareStatement(INSERT);
@@ -79,8 +77,6 @@ public class CardDAO extends AbstractDAO implements ICardDAO {
     public void updateEntity(Card entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
-        long id = entity.getId();
-        int number = entity.getNumber();
 
         try{
             pr = con.prepareStatement(UPDATE);
@@ -105,6 +101,7 @@ public class CardDAO extends AbstractDAO implements ICardDAO {
     public void removeEntity(long id) {
         PreparedStatement pr = null;
         Connection con = getConnection();
+
         try {
             pr = con.prepareStatement(DELETE);
             pr.setLong(1, id);

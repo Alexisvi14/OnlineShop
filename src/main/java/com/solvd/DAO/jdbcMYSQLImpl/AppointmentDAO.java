@@ -57,9 +57,6 @@ public class AppointmentDAO extends AbstractDAO implements IAppointmentDAO {
     public void saveEntity(Appointment entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
-        long id = entity.getId();
-        Date date = entity.getDate();
-        Time time = entity.getTime();
 
         try{
             pr = con.prepareStatement(INSERT);
@@ -84,9 +81,6 @@ public class AppointmentDAO extends AbstractDAO implements IAppointmentDAO {
     public void updateEntity(Appointment entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
-        long id = entity.getId();
-        Date date = entity.getDate();
-        Time time = entity.getTime();
 
         try {
             pr = con.prepareStatement(UPDATE);

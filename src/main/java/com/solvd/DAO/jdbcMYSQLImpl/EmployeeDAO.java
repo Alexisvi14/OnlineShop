@@ -56,9 +56,6 @@ public class EmployeeDAO extends AbstractDAO implements IEmployeeDAO {
     public void saveEntity(Employee entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
-        String firstName = entity.getFirstName();
-        String lastName = entity.getLastName();
-        double salary = entity.getSalary();
 
         try {
             pr = con.prepareStatement(INSERT);
@@ -83,9 +80,6 @@ public class EmployeeDAO extends AbstractDAO implements IEmployeeDAO {
     public void updateEntity(Employee entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
-        String firstName = entity.getFirstName();
-        String lastName = entity.getLastName();
-        double salary = entity.getSalary();
 
         try {
             pr = con.prepareStatement(UPDATE);

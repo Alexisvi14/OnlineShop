@@ -58,10 +58,6 @@ public class ClientDAO extends AbstractDAO implements IClientDAO {
     public void saveEntity(Client entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
-        String firstName = entity.getFirstName();
-        String lastName = entity.getLastName();
-        double npi = entity.getNpi();
-        String email = entity.getEmail();
 
         try{
             pr = con.prepareStatement(INSERT);
@@ -87,10 +83,6 @@ public class ClientDAO extends AbstractDAO implements IClientDAO {
     public void updateEntity(Client entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
-        String firstName = entity.getFirstName();
-        String lastName = entity.getLastName();
-        double npi = entity.getNpi();
-        String email = entity.getEmail();
 
         try{
             pr = con.prepareStatement(UPDATE);

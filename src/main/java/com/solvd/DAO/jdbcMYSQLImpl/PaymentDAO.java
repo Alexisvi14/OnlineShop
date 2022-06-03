@@ -1,6 +1,6 @@
-package com.solvd.DAO.jdbcMYSQLImpl;
+package com.solvd.dao.jdbcMYSQLImpl;
 
-import com.solvd.DAO.IPaymentDAO;
+import com.solvd.dao.IPaymentDAO;
 import com.solvd.bin.Payment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

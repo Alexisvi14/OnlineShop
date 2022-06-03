@@ -1,7 +1,7 @@
-package com.solvd.service.serviceImpl;
+package com.solvd.service.JDBCImpl;
 
-import com.solvd.DAO.IPaymentDAO;
-import com.solvd.DAO.jdbcMYSQLImpl.PaymentDAO;
+import com.solvd.dao.IPaymentDAO;
+import com.solvd.dao.jdbcMYSQLImpl.PaymentDAO;
 import com.solvd.service.PaymentService;
 import com.solvd.bin.Payment;
 

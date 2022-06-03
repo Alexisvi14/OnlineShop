@@ -23,10 +23,13 @@ public class Account {
     @JsonProperty("payment")
     private List<Payment> payments;
 
-    public Account() {
+    public Account(long id, double balance, double cbu) {
         this.id = id;
         this.balance = balance;
         this.cbu = cbu;
+    }
+
+    public Account() {
     }
 
     public List<Card> getCards() {

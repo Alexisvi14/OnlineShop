@@ -1,6 +1,6 @@
-package com.solvd.DAO.jdbcMYSQLImpl;
+package com.solvd.dao.jdbcMYSQLImpl;
 
-import com.solvd.DAO.IEmployeeDAO;
+import com.solvd.dao.IEmployeeDAO;
 import com.solvd.bin.Employee;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

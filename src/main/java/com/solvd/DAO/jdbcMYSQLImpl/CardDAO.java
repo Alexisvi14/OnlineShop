@@ -1,6 +1,6 @@
-package com.solvd.DAO.jdbcMYSQLImpl;
+package com.solvd.dao.jdbcMYSQLImpl;
 
-import com.solvd.DAO.ICardDAO;
+import com.solvd.dao.ICardDAO;
 import com.solvd.bin.Card;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

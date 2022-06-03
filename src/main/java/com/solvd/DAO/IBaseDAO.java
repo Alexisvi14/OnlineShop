@@ -1,4 +1,4 @@
-package com.solvd.DAO;
+package com.solvd.dao;
 
 public interface IBaseDAO <T>{
     T getEntityById(long id);

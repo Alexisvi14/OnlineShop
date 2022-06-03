@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.solvd.OnlineShop.dao.IEmployeeDAO">
+    <resultMap type = "com.solvd.OnlineShop.bin.Employee"
+               id= "EmployeeResultMap"   autoMapping="false">
+        <id column="id" property="id" />
+        <result column = "first_name" property = "firstName"/>
+        <result column = "last_name" property = "lastName"/>
+        <result column = "salary" property = "salary"/>
+    </resultMap>
+
+    <insert id="saveEntity" useGeneratedKeys="true" keyProperty="true">
+        Insert into Employees (first_name,last_name,salary) values (#{employee.firstName},#{employee.lastName},#{employee.salary})
+    </insert>
+
+    <update id="updateEntity">
+        Update Employees set first_name=#{employee.firstName},last_name=#{employee.lastName},phone_number=#{employee.salary} where id=#{employee.id}
+    </update>
+
+    <delete id="removeEntity">
+        Delete from Employees where id=${id}
+    </delete>
+
+    <select id="getEntityById" resultMap="EmployeeResultMap">
+        Select * from Employees where id=${id}
+    </select>
+
+</mapper>

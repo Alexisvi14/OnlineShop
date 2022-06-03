@@ -30,7 +30,7 @@ public class ConnectionPool {
         basicDataSource.setMaxTotal(40);
         basicDataSource.setMaxWaitMillis(10000);
     }
-    public static ConnectionPool getInstance() {
+    public synchronized static ConnectionPool getInstance() {
         if (datasource == null) {
             datasource = new ConnectionPool();
             return datasource;

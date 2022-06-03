@@ -1,0 +1,28 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.solvd.OnlineShop.dao.IPaymentDAO">
+    <resultMap type = "com.solvd.OnlineShop.bin.Payment"
+               id= "PaymentResultMap"   autoMapping="false">
+        <id column="id" property="id" />
+        <result column = "money" property = "money"/>
+        <result column = "place" property = "place"/>
+    </resultMap>
+
+    <insert id="saveEntity" useGeneratedKeys="true" keyProperty="true">
+        Insert into Payments (money,place) values (#{payment.money},#{payment.time})
+    </insert>
+
+    <update id="updateEntity">
+        Update Payments set money=#{payment.money},place=#{payment.place} where id=#{payment.id}
+    </update>
+
+    <delete id="removeEntity">
+        Delete from Payments where id=${id}
+    </delete>
+
+    <select id="getEntityById" resultMap="PaymentResultMap">
+        Select * from Payments where id=${id}
+    </select>
+
+</mapper>

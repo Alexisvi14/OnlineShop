@@ -1,7 +1,7 @@
-package com.solvd.service.serviceImpl;
+package com.solvd.service.JDBCImpl;
 
-import com.solvd.DAO.IAppointmentDAO;
-import com.solvd.DAO.jdbcMYSQLImpl.AppointmentDAO;
+import com.solvd.dao.IAppointmentDAO;
+import com.solvd.dao.jdbcMYSQLImpl.AppointmentDAO;
 import com.solvd.service.AppointmentService;
 import com.solvd.bin.Appointment;
 

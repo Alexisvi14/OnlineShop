@@ -1,7 +1,7 @@
-package com.solvd.service.serviceImpl;
+package com.solvd.service.JDBCImpl;
 
-import com.solvd.DAO.ICardDAO;
-import com.solvd.DAO.jdbcMYSQLImpl.CardDAO;
+import com.solvd.dao.ICardDAO;
+import com.solvd.dao.jdbcMYSQLImpl.CardDAO;
 import com.solvd.service.CardService;
 import com.solvd.bin.Card;
 

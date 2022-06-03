@@ -1,4 +1,4 @@
-package com.solvd.DAO;
+package com.solvd.dao;
 
 import com.solvd.bin.Payment;
 

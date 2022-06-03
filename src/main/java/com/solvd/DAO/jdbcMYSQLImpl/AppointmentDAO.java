@@ -1,14 +1,12 @@
-package com.solvd.DAO.jdbcMYSQLImpl;
+package com.solvd.dao.jdbcMYSQLImpl;
 
-import com.solvd.DAO.IAppointmentDAO;
+import com.solvd.dao.IAppointmentDAO;
 import com.solvd.bin.Appointment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Date;
 
 public class AppointmentDAO extends AbstractDAO implements IAppointmentDAO {

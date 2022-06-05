@@ -1,8 +1,10 @@
 package com.solvd.dao;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface IBaseDAO <T>{
     T getEntityById(long id);
-    void saveEntity(T entity);
-    void updateEntity(T entity);
+    void saveEntity(@Param("entity") T entity);
+    void updateEntity(@Param("entity") T entity);
     void removeEntity(long id);
 }

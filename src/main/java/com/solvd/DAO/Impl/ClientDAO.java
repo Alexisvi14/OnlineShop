@@ -1,4 +1,4 @@
-package com.solvd.dao.jdbcMYSQLImpl;
+package com.solvd.dao.Impl;
 
 import com.solvd.dao.IClientDAO;
 import com.solvd.bin.Client;
@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class ClientDAO extends AbstractDAO implements IClientDAO {
     private final static Logger LOGGER = LogManager.getLogger(ClientDAO.class);
     private final static String INSERT = "INSERT INTO Clients (first_name, last_name, npi, email) VALUES (?,?,?,?) WHERE id=?";
-    private final static String UPDATE = "UPDATE Clients SET first_name=?,last_name=?,npi=?,email=?, WHERE idClients=?";
+    private final static String UPDATE = "UPDATE Clients SET first_name=?,last_name=?,npi=?,email=? WHERE idClients=?";
     private final static String SELECT = "SELECT * FROM Clients WHERE idClients=?";
     private final static String DELETE = "DELETE FROM Clients WHERE idClients=?";
 
@@ -61,6 +61,11 @@ public class ClientDAO extends AbstractDAO implements IClientDAO {
 
         try{
             pr = con.prepareStatement(INSERT);
+            pr.setString(1, entity.getFirstName());
+            pr.setString(2, entity.getLastName());
+            pr.setDouble(3, entity.getNpi());
+            pr.setString(4, entity.getEmail());
+            pr.setLong(5, entity.getId());
             pr.execute();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
@@ -86,6 +91,11 @@ public class ClientDAO extends AbstractDAO implements IClientDAO {
 
         try{
             pr = con.prepareStatement(UPDATE);
+            pr.setString(1, entity.getFirstName());
+            pr.setString(2, entity.getLastName());
+            pr.setDouble(3, entity.getNpi());
+            pr.setString(4, entity.getEmail());
+            pr.setLong(5, entity.getId());
             pr.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement", e);

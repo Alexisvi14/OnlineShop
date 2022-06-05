@@ -1,45 +1,46 @@
-package com.solvd.dao.jdbcMYSQLImpl;
+package com.solvd.dao.Impl;
 
-import com.solvd.dao.IAppointmentDAO;
-import com.solvd.bin.Appointment;
+import com.solvd.dao.IEmployeeDAO;
+import com.solvd.bin.Employee;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.*;
-import java.time.Instant;
-import java.util.Date;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public class AppointmentDAO extends AbstractDAO implements IAppointmentDAO {
-    private final static Logger LOGGER = LogManager.getLogger(AppointmentDAO.class);
-    private final static String INSERT = "INSERT INTO Appointments (date, time, idClients) VALUES (?,?,?) WHERE id=?";
-    private final static String UPDATE = "UPDATE Appointments SET date=?,time=?,idClients=?, WHERE idAppointments=?";
-    private final static String SELECT = "SELECT * FROM Appointments WHERE idAppointments=?";
-    private final static String DELETE = "DELETE FROM Appointments WHERE idAppointments=?";
+public class EmployeeDAO extends AbstractDAO implements IEmployeeDAO {
+    private final static Logger LOGGER = LogManager.getLogger(EmployeeDAO.class);
+    private final static String INSERT = "INSERT INTO Employees (first_name, last_name, salary) VALUES (?,?,?) WHERE id=?";
+    private final static String UPDATE = "UPDATE Employees SET first_name=?,last_name=?,salary=? WHERE id=?";
+    private final static String SELECT = "SELECT * FROM Employees WHERE idEmployees=?";
+    private final static String DELETE = "DELETE FROM Employees WHERE idEmployees=?";
 
     @Override
-    public Appointment getEntityById(long id) {
+    public Employee getEntityById(long id) {
         PreparedStatement pr = null;
         ResultSet rs = null;
         Connection con = getConnection();
-
         try{
             pr = con.prepareStatement(SELECT);
             pr.setLong(1, id);
             rs = pr.executeQuery();
-            Appointment appointment = new Appointment();
+            Employee employee = new Employee();
             rs.next();
-            appointment.setId(Integer.parseInt(rs.getString("idAppointments")));
-            appointment.setDate(Date.from(Instant.parse(rs.getString("date"))));
-            appointment.setTime(Time.valueOf(rs.getString("time")));
+            employee.setId(Integer.parseInt(rs.getString("idEmployees")));
+            employee.setFirstName(rs.getString("first_name"));
+            employee.setLastName(rs.getString("last_name"));
+            employee.setSalary(Integer.parseInt(rs.getString("salary")));
 
-            return appointment;
+            return employee;
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
             throw new RuntimeException(e);
         }
         finally {
             returnConnection(con);
-            try {
+            try{
                 if (pr != null)
                     pr.close();
                 if (rs != null)
@@ -52,20 +53,24 @@ public class AppointmentDAO extends AbstractDAO implements IAppointmentDAO {
     }
 
     @Override
-    public void saveEntity(Appointment entity) {
+    public void saveEntity(Employee entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
 
-        try{
+        try {
             pr = con.prepareStatement(INSERT);
-            pr.execute();
+            pr.setString(1, entity.getFirstName());
+            pr.setString(2, entity.getLastName());
+            pr.setDouble(3, entity.getSalary());
+            pr.setLong(4, entity.getId());
+            pr.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
             throw new RuntimeException(e);
         }
         finally {
             returnConnection(con);
-            try{
+            try {
                 if (pr != null)
                     pr.close();
             } catch (SQLException e) {
@@ -76,12 +81,16 @@ public class AppointmentDAO extends AbstractDAO implements IAppointmentDAO {
     }
 
     @Override
-    public void updateEntity(Appointment entity) {
+    public void updateEntity(Employee entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
 
         try {
             pr = con.prepareStatement(UPDATE);
+            pr.setString(1, entity.getFirstName());
+            pr.setString(2, entity.getLastName());
+            pr.setDouble(3,entity.getSalary());
+            pr.setLong(4,entity.getId());
             pr.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
@@ -104,22 +113,22 @@ public class AppointmentDAO extends AbstractDAO implements IAppointmentDAO {
         PreparedStatement pr = null;
         Connection con = getConnection();
 
-        try{
+        try {
             pr = con.prepareStatement(DELETE);
             pr.setLong(1, id);
-            pr.execute();
+            pr.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         finally {
             returnConnection(con);
-            try{
+            try {
                 if (pr != null)
                     pr.close();
             } catch (SQLException e) {
                 LOGGER.error("Exception while closing", e);
-                throw new RuntimeException(e);
+                throw new RuntimeException();
             }
         }
     }

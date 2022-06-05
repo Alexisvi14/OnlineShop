@@ -1,31 +1,27 @@
 package com.solvd;
 
-import com.solvd.bin.Card;
-import com.solvd.service.AccountService;
 import com.solvd.service.jackson.AccountJackson;
 import com.solvd.service.jaxB.EmployeeJaxB;
-import com.solvd.service.JDBCImpl.AccountServiceImpl;
-import com.solvd.service.JDBCImpl.EmployeeServiceImpl;
-import com.solvd.service.JDBCImpl.ShopServiceImpl;
+import com.solvd.service.jdbcImpl.AccountServiceImpl;
+import com.solvd.service.jdbcImpl.EmployeeServiceImpl;
+import com.solvd.service.jdbcImpl.ShopServiceImpl;
 import com.solvd.bin.Account;
 import com.solvd.bin.Employee;
 import com.solvd.bin.Shop;
-import com.solvd.service.mybatis.AccountServicesImpl;
-import com.solvd.service.mybatis.CardServicesImpl;
+import com.solvd.service.mybatisImpl.AccountServicesImpl;
+import com.solvd.service.mybatisImpl.EmployeeServicesImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.xml.bind.JAXBException;
-import java.io.IOException;
 import java.util.List;
 
 
 public class App {
     private final static Logger LOGGER = LogManager.getLogger(App.class);
 
-    public static void main(String[] args) throws IOException, JAXBException {
+    public static void main(String[] args) {
 
-        //Everything working//
+        //Everything is working//
 
         //SELECT ACCOUNT - by id
         AccountServiceImpl accountServiceImpl = new AccountServiceImpl();
@@ -74,9 +70,25 @@ public class App {
 
         //MYBATIS
 
+        //GETTING accounts
+
         AccountServicesImpl accountServices = new AccountServicesImpl();
-        Account account2 = accountServices.getAccount(3);
+        Account account2 = accountServices.getAccount(5);
         LOGGER.info(account2);
+
+        //UPDATE with Mybatis
+
+        EmployeeServicesImpl employeeServices = new EmployeeServicesImpl();
+        LOGGER.info("This is the information that will be updated: "
+                + employeeServices.getEmployee(15).getFirstName() + " " +
+                employeeServices.getEmployee(15).getLastName() + " " +
+                employeeServices.getEmployee(15).getSalary());
+
+        Employee newEmployee = new Employee();
+        newEmployee.setFirstName("Alexander");
+        newEmployee.setLastName("Saez");
+        newEmployee.setSalary(3000);
+
 
     }
 }

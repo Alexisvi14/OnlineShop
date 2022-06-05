@@ -17,16 +17,16 @@
     </insert>
 
     <update id="updateEntity">
-        Update Clients set first_name=#{client.firstName},last_name=#{client.lastName},npi=#{client.npi},email=#{client.email}
-        where id=#{client.id}
+        Update Clients set first_name=#{entity.firstName},last_name=#{entity.lastName},npi=#{entity.npi},email=#{entity.email}
+        where idClients=#{entity.id}
     </update>
 
     <delete id="removeEntity">
-        Delete from Clients where id=${id}
+        Delete from Clients where idClients=${id}
     </delete>
 
     <select id="getEntityById" resultMap="ClientResultMap">
-        Select * from Clients where id=${id}
+        Select * from Clients where idClients=${id}
     </select>
 
 </mapper>

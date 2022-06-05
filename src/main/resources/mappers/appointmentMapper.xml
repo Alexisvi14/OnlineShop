@@ -1,8 +1,8 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace = "com.solvd.OnlineShop.dao.IAppointmentDAO">
-    <resultMap type = "com.solvd.OnlineShop.bin.Appointment"
+<mapper namespace = "com.solvd.dao.IAppointmentDAO">
+    <resultMap type = "com.solvd.bin.Appointment"
                id= "AppointmentResultMap"   autoMapping="false">
         <id column="id" property="id" />
         <result column = "date" property = "date"/>
@@ -10,19 +10,19 @@
     </resultMap>
 
     <insert id="saveEntity" useGeneratedKeys="true" keyProperty="true">
-        Insert into Appointments (date,time) values (#{appointment.date},#{appointment.time})
+        Insert into Appointments (date,time) values (#{entity.date},#{entity.time})
     </insert>
 
-    <update id="updateEntity">
-        Update Appointments set date=#{appointment.date},time=#{appointment.time} where id=#{appointment.id}
+    <update id="updateEntity" >
+        Update Appointments set date=#{entity.date},time=#{entity.time} where id=#{entity.id}
     </update>
 
     <delete id="removeEntity">
-        Delete from Appointments where id=${id}
+        Delete from Appointments where idAppointments=${id}
     </delete>
 
     <select id="getEntityById" resultMap="AppointmentResultMap">
-        Select * from Appointments where id=${id}
+        Select * from Appointments where idAppointments=#{id}
     </select>
 
 </mapper>

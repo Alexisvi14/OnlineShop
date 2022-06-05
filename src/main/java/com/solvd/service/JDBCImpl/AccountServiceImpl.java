@@ -1,7 +1,7 @@
-package com.solvd.service.JDBCImpl;
+package com.solvd.service.jdbcImpl;
 
 import com.solvd.dao.IAccountDAO;
-import com.solvd.dao.jdbcMYSQLImpl.AccountDAO;
+import com.solvd.dao.Impl.AccountDAO;
 import com.solvd.service.AccountService;
 import com.solvd.bin.Account;
 import org.apache.logging.log4j.LogManager;

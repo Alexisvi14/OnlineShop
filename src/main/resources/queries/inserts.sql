@@ -1,0 +1,10 @@
+INSERT INTO accounts (balance,cbu) VALUES (5000,4444123);
+INSERT INTO accounts (balance,cbu) VALUES (3000,4522256);
+INSERT INTO accounts (balance,cbu) VALUES (2500,7666689);
+INSERT INTO cards (number) VALUES (42221258);
+INSERT INTO owner (firs_name,last_name,idOwner) VALUES ('Alexis','Villamayor',1);
+INSERT INTO clients (first_name,last_name,npi,email) VALUES ('Gray','Shelby',21123456,'gray@gmail.com');
+INSERT INTO clients (first_name,last_name,npi,email) VALUES ('Celeste','Gragorr',22123456,'cele@gmail.com');
+INSERT INTO clients (first_name,last_name,npi,email) VALUES ('George','Weas',12223445,'george@gmail.com');
+INSERT INTO employees (first_name, last_name, salary) VALUES ('Jesus', 'Quintana', 'quin@gmail.com');
+INSERT INTO employees (number,client_id) VALUES (42963214,2);

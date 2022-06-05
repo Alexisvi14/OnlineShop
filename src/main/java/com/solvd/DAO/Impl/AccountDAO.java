@@ -1,4 +1,4 @@
-package com.solvd.dao.jdbcMYSQLImpl;
+package com.solvd.dao.Impl;
 
 import com.solvd.dao.IAccountDAO;
 import com.solvd.bin.Account;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class AccountDAO extends AbstractDAO implements IAccountDAO {
     private final static Logger LOGGER = LogManager.getLogger(AccountDAO.class);
     private final static String INSERT = "INSERT INTO Accounts (balance, cbu) VALUES (?,?) WHERE id=?";
-    private final static String UPDATE = "UPDATE Accounts SET balance=?,cbu=?, WHERE idAccounts=?";
+    private final static String UPDATE = "UPDATE Accounts SET balance=?,cbu=? WHERE idAccounts=?";
     private final static String SELECT = "SELECT * FROM Accounts WHERE idAccounts=?";
     private final static String DELETE = "DELETE FROM Accounts WHERE idAccounts=?";
 
@@ -58,7 +58,10 @@ public class AccountDAO extends AbstractDAO implements IAccountDAO {
 
         try {
             pr = con.prepareStatement(INSERT);
-            pr.execute();
+            pr.setDouble(1, entity.getBalance());
+            pr.setDouble(2, entity.getCbu());
+            pr.setLong(3, entity.getId());
+            pr.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
             throw new RuntimeException(e);
@@ -82,6 +85,9 @@ public class AccountDAO extends AbstractDAO implements IAccountDAO {
 
         try {
             pr = con.prepareStatement(UPDATE);
+            pr.setDouble(1, entity.getBalance());
+            pr.setDouble(2, entity.getCbu());
+            pr.setLong(3, entity.getId());
             pr.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
@@ -106,7 +112,7 @@ public class AccountDAO extends AbstractDAO implements IAccountDAO {
         try{
             pr = con.prepareStatement(DELETE);
             pr.setLong(1, id);
-            pr.execute();
+            pr.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
             throw new RuntimeException();

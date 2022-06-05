@@ -1,0 +1,10 @@
+UPDATE shops SET name = 'Rockstar' WHERE idShops = 2;
+UPDATE cities SET name = 'Stalingrad' where id_Cities = 8;
+UPDATE employees SET first_name = 'Raul' where idEmployees = 1;
+UPDATE employees SET first_name = 'Gaston' where idEmployees = 4;
+UPDATE employees SET first_name = 'Claire' where idEmployees = 2;
+UPDATE clients SET last_name = 'Gonzalez' where id_Employees = 6;
+UPDATE clients SET last_name = 'Luna' where id_Employees = 7;
+UPDATE clients SET last_name = 'Benedetto' where id_Employees = 8;
+UPDATE cards SET number = 21344421 where idCards = 3;
+UPDATE accounts SET cbu = 12242354 where idAccounts = 5;

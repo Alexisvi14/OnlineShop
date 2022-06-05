@@ -1,4 +1,4 @@
-package com.solvd.dao.jdbcMYSQLImpl;
+package com.solvd.dao.Impl;
 
 import com.solvd.util.ConnectionPool;
 

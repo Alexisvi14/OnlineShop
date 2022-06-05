@@ -1,7 +1,7 @@
-package com.solvd.service.JDBCImpl;
+package com.solvd.service.jdbcImpl;
 
 import com.solvd.dao.IEmployeeDAO;
-import com.solvd.dao.jdbcMYSQLImpl.EmployeeDAO;
+import com.solvd.dao.Impl.EmployeeDAO;
 import com.solvd.service.EmployeeService;
 import com.solvd.bin.Employee;
 

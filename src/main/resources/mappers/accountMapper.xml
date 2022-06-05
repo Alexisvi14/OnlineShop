@@ -1,8 +1,8 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace = "com.solvd.OnlineShop.dao.IAccountDAO">
-    <resultMap type = "com.solvd.OnlineShop.bin.Account"
+<mapper namespace = "com.solvd.dao.IAccountDAO">
+    <resultMap type = "com.solvd.bin.Account"
                id= "AccountResultMap"   autoMapping="false">
         <id column="id" property="id" />
         <result column = "balance" property = "balance"/>
@@ -10,19 +10,19 @@
     </resultMap>
 
     <insert id="saveEntity" useGeneratedKeys="true" keyProperty="true">
-            Insert into Accounts (balance,cbu) values (#{account.balance},#{account.cbu})
+            Insert into Accounts (balance,cbu) values (#{account.balance},#{entity.cbu})
     </insert>
 
     <update id="updateEntity">
-            Update Accounts set balance=#{account.balance},cbu=#{account.cbu} where id=#{account.id}
+            Update Accounts set balance=#{entity.balance},cbu=#{entity.cbu} where idAccounts=#{entity.id}
     </update>
 
     <delete id="removeEntity">
-            Delete from Accounts where id=${id}
+            Delete from Accounts where idAccounts=${id}
     </delete>
 
-    <select id="getEntityById" resultType="account" resultMap="AccountResultMap">
-            Select * from Accounts where id=${id}
+    <select id="getEntityById" resultMap="AccountResultMap">
+            Select * from Accounts where idAccounts=#{id}
     </select>
 
 </mapper>

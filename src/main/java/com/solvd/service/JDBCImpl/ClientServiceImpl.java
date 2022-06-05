@@ -1,7 +1,7 @@
-package com.solvd.service.JDBCImpl;
+package com.solvd.service.jdbcImpl;
 
 import com.solvd.dao.IClientDAO;
-import com.solvd.dao.jdbcMYSQLImpl.ClientDAO;
+import com.solvd.dao.Impl.ClientDAO;
 import com.solvd.service.ClientService;
 import com.solvd.bin.Client;
 

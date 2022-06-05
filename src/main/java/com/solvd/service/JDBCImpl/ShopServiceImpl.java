@@ -1,7 +1,7 @@
-package com.solvd.service.JDBCImpl;
+package com.solvd.service.jdbcImpl;
 
 import com.solvd.dao.IShopDAO;
-import com.solvd.dao.jdbcMYSQLImpl.ShopDAO;
+import com.solvd.dao.Impl.ShopDAO;
 import com.solvd.service.ShopService;
 import com.solvd.bin.Shop;
 

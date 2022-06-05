@@ -1,7 +1,7 @@
-package com.solvd.dao.jdbcMYSQLImpl;
+package com.solvd.dao.Impl;
 
-import com.solvd.dao.ICardDAO;
-import com.solvd.bin.Card;
+import com.solvd.dao.IShopDAO;
+import com.solvd.bin.Shop;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,32 +10,36 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CardDAO extends AbstractDAO implements ICardDAO {
-    private final static Logger LOGGER = LogManager.getLogger(CardDAO.class);
-    private final static String INSERT = "INSERT INTO Cards (number, idAccounts) VALUES (?,?) WHERE id=?";
-    private final static String UPDATE = "UPDATE Cards SET number=?,idAccounts=?, WHERE idCards=?";
-    private final static String SELECT = "SELECT * FROM Cards WHERE idCards=?";
-    private final static String DELETE = "DELETE FROM Cards WHERE idCards=?";
+public class ShopDAO extends AbstractDAO implements IShopDAO {
+    private final static Logger LOGGER = LogManager.getLogger(ShopDAO.class);
+    private final static String INSERT = "INSERT INTO Shops (name, web_page, phone_number, idOwner, idClients) VALUES (?,?,?,?,?) WHERE id=?";
+    private final static String UPDATE = "UPDATE Shops SET name=?,web_page=?, phone_number=?, idOwner=?, idClients=? WHERE idShop=?";
+    private final static String SELECT = "SELECT * FROM Shops WHERE idShop=?";
+    private final static String DELETE = "DELETE FROM Shops WHERE idShop=?";
 
     @Override
-    public Card getEntityById(long id) {
+    public Shop getEntityById(long id) {
         PreparedStatement pr = null;
         ResultSet rs = null;
         Connection con = getConnection();
+
         try {
             pr = con.prepareStatement(SELECT);
             pr.setLong(1, id);
             rs = pr.executeQuery();
-            Card card = new Card();
+            Shop shop = new Shop();
             rs.next();
-            card.setId(Integer.parseInt(rs.getString("idCards")));
-            card.setNumber(Integer.parseInt(rs.getString("number")));
+            shop.setId(Integer.parseInt(rs.getString("idShop")));
+            shop.setName(rs.getString("name"));
+            shop.setPhoneNumber(Integer.parseInt(rs.getString("phone_number")));
+            shop.setWebPage(rs.getString("web_page"));
 
-            return card;
+            return shop;
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
             throw new RuntimeException(e);
-        } finally {
+        }
+        finally {
             returnConnection(con);
             try {
                 if (pr != null)
@@ -50,13 +54,44 @@ public class CardDAO extends AbstractDAO implements ICardDAO {
     }
 
     @Override
-    public void saveEntity(Card entity) {
+    public void saveEntity(Shop entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
 
         try{
             pr = con.prepareStatement(INSERT);
+            pr.setString(1, entity.getName());
+            pr.setInt(2, entity.getPhoneNumber());
+            pr.setString(3, entity.getWebPage());
             pr.execute();
+
+        } catch (SQLException e) {
+            LOGGER.error("There was a problem while doing the statement");
+            throw new RuntimeException(e);
+        }
+        finally {
+            returnConnection(con);
+            try{
+                if (pr != null);
+                pr.close();
+            } catch (SQLException e) {
+                LOGGER.error("Exception while closing", e);
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
+    public void updateEntity(Shop entity) {
+        PreparedStatement pr = null;
+        Connection con = getConnection();
+
+        try {
+            pr = con.prepareStatement(UPDATE);
+            pr.setString(1, entity.getName());
+            pr.setInt(2, entity.getPhoneNumber());
+            pr.setString(3, entity.getWebPage());
+            pr.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
             throw new RuntimeException(e);
@@ -74,12 +109,12 @@ public class CardDAO extends AbstractDAO implements ICardDAO {
     }
 
     @Override
-    public void updateEntity(Card entity) {
+    public void removeEntity(long id) {
         PreparedStatement pr = null;
         Connection con = getConnection();
-
-        try{
-            pr = con.prepareStatement(UPDATE);
+        try {
+            pr = con.prepareStatement(DELETE);
+            pr.setLong(1, id);
             pr.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
@@ -87,37 +122,12 @@ public class CardDAO extends AbstractDAO implements ICardDAO {
         }
         finally {
             returnConnection(con);
-            try{
+            try {
                 if (pr != null)
                     pr.close();
             } catch (SQLException e) {
                 LOGGER.error("Exception while closing", e);
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    @Override
-    public void removeEntity(long id) {
-        PreparedStatement pr = null;
-        Connection con = getConnection();
-
-        try {
-            pr = con.prepareStatement(DELETE);
-            pr.setLong(1, id);
-            pr.execute();
-        } catch (SQLException e) {
-            LOGGER.error("There was a problem while doing the statement");
-            throw new RuntimeException(e);
-        }
-        finally {
-            returnConnection(con);
-            try{
-                if (pr != null)
-                    pr.close();
-            } catch (SQLException e) {
-                LOGGER.error("Exception while closing", e);
-                throw new RuntimeException(e);
+                throw new RuntimeException();
             }
         }
     }

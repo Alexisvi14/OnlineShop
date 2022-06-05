@@ -1,42 +1,43 @@
-package com.solvd.dao.jdbcMYSQLImpl;
+package com.solvd.dao.Impl;
 
-import com.solvd.dao.IPaymentDAO;
-import com.solvd.bin.Payment;
+import com.solvd.dao.IAppointmentDAO;
+import com.solvd.bin.Appointment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.Instant;
+import java.util.Date;
 
-public class PaymentDAO extends AbstractDAO implements IPaymentDAO {
-    private final static Logger LOGGER = LogManager.getLogger(PaymentDAO.class);
-    private final static String INSERT = "INSERT INTO Payments (money, place, idAccounts) VALUES (?,?,?) WHERE id=?";
-    private final static String UPDATE = "UPDATE Payments SET money=?,place=?,idAccounts=?, WHERE idPayments=?";
-    private final static String SELECT = "SELECT * FROM Payments WHERE idPayments=?";
-    private final static String DELETE = "DELETE FROM Payments WHERE idPayments=?";
+public class AppointmentDAO extends AbstractDAO implements IAppointmentDAO {
+    private final static Logger LOGGER = LogManager.getLogger(AppointmentDAO.class);
+    private final static String INSERT = "INSERT INTO Appointments (date, time, idClients) VALUES (?,?,?) WHERE id=?";
+    private final static String UPDATE = "UPDATE Appointments SET date=?,time=?,idClients=? WHERE idAppointments=?";
+    private final static String SELECT = "SELECT * FROM Appointments WHERE idAppointments=?";
+    private final static String DELETE = "DELETE FROM Appointments WHERE idAppointments=?";
 
     @Override
-    public Payment getEntityById(long id) {
+    public Appointment getEntityById(long id) {
         PreparedStatement pr = null;
         ResultSet rs = null;
         Connection con = getConnection();
-        try {
+
+        try{
             pr = con.prepareStatement(SELECT);
             pr.setLong(1, id);
             rs = pr.executeQuery();
-            Payment payment = new Payment();
+            Appointment appointment = new Appointment();
             rs.next();
-            payment.setId(Integer.parseInt(rs.getString("idPayments")));
-            payment.setMoney(Integer.parseInt(rs.getString("money")));
-            payment.setPlace(rs.getString("place"));
+            appointment.setId(Integer.parseInt(rs.getString("idAppointments")));
+            appointment.setDate(Date.from(Instant.parse(rs.getString("date"))));
+            appointment.setTime(Time.valueOf(rs.getString("time")));
 
-            return payment;
+            return appointment;
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
             throw new RuntimeException(e);
-        } finally {
+        }
+        finally {
             returnConnection(con);
             try {
                 if (pr != null)
@@ -51,23 +52,26 @@ public class PaymentDAO extends AbstractDAO implements IPaymentDAO {
     }
 
     @Override
-    public void saveEntity(Payment entity) {
+    public void saveEntity(Appointment entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
 
-        try {
+        try{
             pr = con.prepareStatement(INSERT);
+            pr.setDate(1, (java.sql.Date) entity.getDate());
+            pr.setTime(2, entity.getTime());
+            pr.setLong(3, entity.getId());
             pr.execute();
         } catch (SQLException e) {
-            LOGGER.info("There was a problem while doing the statement");
+            LOGGER.error("There was a problem while doing the statement");
             throw new RuntimeException(e);
         }
         finally {
             returnConnection(con);
             try{
-                if (pr != null);
-                pr.close();
-            }catch (SQLException e){
+                if (pr != null)
+                    pr.close();
+            } catch (SQLException e) {
                 LOGGER.error("Exception while closing", e);
                 throw new RuntimeException(e);
             }
@@ -75,12 +79,15 @@ public class PaymentDAO extends AbstractDAO implements IPaymentDAO {
     }
 
     @Override
-    public void updateEntity(Payment entity) {
+    public void updateEntity(Appointment entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
 
-        try{
+        try {
             pr = con.prepareStatement(UPDATE);
+            pr.setDate(1, (java.sql.Date) entity.getDate());
+            pr.setTime(2, entity.getTime());
+            pr.setLong(3, entity.getId());
             pr.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
@@ -88,11 +95,11 @@ public class PaymentDAO extends AbstractDAO implements IPaymentDAO {
         }
         finally {
             returnConnection(con);
-            try {
-                if (pr != null);
-                pr.close();
+            try{
+                if (pr != null)
+                    pr.close();
             } catch (SQLException e) {
-                LOGGER.error("Exception while closing");
+                LOGGER.error("Exception while closing", e);
                 throw new RuntimeException(e);
             }
         }
@@ -102,22 +109,23 @@ public class PaymentDAO extends AbstractDAO implements IPaymentDAO {
     public void removeEntity(long id) {
         PreparedStatement pr = null;
         Connection con = getConnection();
-        try {
+
+        try{
             pr = con.prepareStatement(DELETE);
-            pr.setLong(Integer.parseInt("1"), id);
-            pr.execute();
+            pr.setLong(1, id);
+            pr.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
-            throw new RuntimeException(e);
+            throw new RuntimeException();
         }
         finally {
             returnConnection(con);
-            try {
+            try{
                 if (pr != null)
                     pr.close();
             } catch (SQLException e) {
                 LOGGER.error("Exception while closing", e);
-                throw new RuntimeException();
+                throw new RuntimeException(e);
             }
         }
     }

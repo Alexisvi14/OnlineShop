@@ -1,8 +1,8 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.solvd.OnlineShop.dao.ICardDAO">
-    <resultMap type="com.solvd.OnlineShop.bin.Card"
+<mapper namespace="com.solvd.dao.ICardDAO">
+    <resultMap type="com.solvd.bin.Card"
                id="CardResultMap" autoMapping="false">
         <id column="id" property="id"/>
         <result column="number" property="number"/>
@@ -10,18 +10,18 @@
     </resultMap>
 
     <insert id="saveEntity" useGeneratedKeys="true" keyProperty="true">
-        Insert into Cards (id,number) values (#{card.id},#{card.number})
+        Insert into Cards (id,number) values (#{entity.id},#{entity.number})
     </insert>
 
     <update id="updateEntity">
-        Update Cards set balance=#{card.id},cbu=#{card.number} where id=#{card.id}
+        Update Cards set balance=#{entity.id},cbu=#{entity.number} where id=#{entity.id}
     </update>
 
     <delete id="removeEntity">
-        Delete from Cards where id=${id}
+        Delete from Cards where idCards=${id}
     </delete>
 
     <select id="getEntityById" resultMap="CardResultMap">
-        Select * from Cards where id=${id}
+        Select * from Cards where idCards=${id}
     </select>
 </mapper>

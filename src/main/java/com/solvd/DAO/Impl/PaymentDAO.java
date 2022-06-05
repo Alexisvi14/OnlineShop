@@ -1,7 +1,7 @@
-package com.solvd.dao.jdbcMYSQLImpl;
+package com.solvd.dao.Impl;
 
-import com.solvd.dao.IEmployeeDAO;
-import com.solvd.bin.Employee;
+import com.solvd.dao.IPaymentDAO;
+import com.solvd.bin.Payment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,37 +10,35 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class EmployeeDAO extends AbstractDAO implements IEmployeeDAO {
-    private final static Logger LOGGER = LogManager.getLogger(EmployeeDAO.class);
-    private final static String INSERT = "INSERT INTO Employees (first_name, last_name, salary, idShops) VALUES (?,?,?,?) WHERE id=?";
-    private final static String UPDATE = "UPDATE Employees SET first_name=?,last_name=?,salary=?,idShops=?, WHERE idEmployees=?";
-    private final static String SELECT = "SELECT * FROM Employees WHERE idEmployees=?";
-    private final static String DELETE = "DELETE FROM Employees WHERE idEmployees=?";
+public class PaymentDAO extends AbstractDAO implements IPaymentDAO {
+    private final static Logger LOGGER = LogManager.getLogger(PaymentDAO.class);
+    private final static String INSERT = "INSERT INTO Payments (money, place, idAccounts) VALUES (?,?,?) WHERE id=?";
+    private final static String UPDATE = "UPDATE Payments SET money=?,place=?,idAccounts=? WHERE idPayments=?";
+    private final static String SELECT = "SELECT * FROM Payments WHERE idPayments=?";
+    private final static String DELETE = "DELETE FROM Payments WHERE idPayments=?";
 
     @Override
-    public Employee getEntityById(long id) {
+    public Payment getEntityById(long id) {
         PreparedStatement pr = null;
         ResultSet rs = null;
         Connection con = getConnection();
-        try{
+        try {
             pr = con.prepareStatement(SELECT);
             pr.setLong(1, id);
             rs = pr.executeQuery();
-            Employee employee = new Employee();
+            Payment payment = new Payment();
             rs.next();
-            employee.setId(Integer.parseInt(rs.getString("idEmployees")));
-            employee.setFirstName(rs.getString("first_name"));
-            employee.setLastName(rs.getString("last_name"));
-            employee.setSalary(Integer.parseInt(rs.getString("salary")));
+            payment.setId(Integer.parseInt(rs.getString("idPayments")));
+            payment.setMoney(Integer.parseInt(rs.getString("money")));
+            payment.setPlace(rs.getString("place"));
 
-            return employee;
+            return payment;
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
             throw new RuntimeException(e);
-        }
-        finally {
+        } finally {
             returnConnection(con);
-            try{
+            try {
                 if (pr != null)
                     pr.close();
                 if (rs != null)
@@ -53,23 +51,26 @@ public class EmployeeDAO extends AbstractDAO implements IEmployeeDAO {
     }
 
     @Override
-    public void saveEntity(Employee entity) {
+    public void saveEntity(Payment entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
 
         try {
             pr = con.prepareStatement(INSERT);
+            pr.setDouble(1, entity.getMoney());
+            pr.setString(2, entity.getPlace());
+            pr.setLong(3, entity.getId());
             pr.execute();
         } catch (SQLException e) {
-            LOGGER.error("There was a problem while doing the statement");
+            LOGGER.info("There was a problem while doing the statement");
             throw new RuntimeException(e);
         }
         finally {
             returnConnection(con);
-            try {
-                if (pr != null)
-                    pr.close();
-            } catch (SQLException e) {
+            try{
+                if (pr != null);
+                pr.close();
+            }catch (SQLException e){
                 LOGGER.error("Exception while closing", e);
                 throw new RuntimeException(e);
             }
@@ -77,12 +78,15 @@ public class EmployeeDAO extends AbstractDAO implements IEmployeeDAO {
     }
 
     @Override
-    public void updateEntity(Employee entity) {
+    public void updateEntity(Payment entity) {
         PreparedStatement pr = null;
         Connection con = getConnection();
 
-        try {
+        try{
             pr = con.prepareStatement(UPDATE);
+            pr.setDouble(1, entity.getMoney());
+            pr.setString(2, entity.getPlace());
+            pr.setLong(3, entity.getId());
             pr.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
@@ -90,11 +94,11 @@ public class EmployeeDAO extends AbstractDAO implements IEmployeeDAO {
         }
         finally {
             returnConnection(con);
-            try{
-                if (pr != null)
-                    pr.close();
+            try {
+                if (pr != null);
+                pr.close();
             } catch (SQLException e) {
-                LOGGER.error("Exception while closing", e);
+                LOGGER.error("Exception while closing");
                 throw new RuntimeException(e);
             }
         }
@@ -104,11 +108,10 @@ public class EmployeeDAO extends AbstractDAO implements IEmployeeDAO {
     public void removeEntity(long id) {
         PreparedStatement pr = null;
         Connection con = getConnection();
-
         try {
             pr = con.prepareStatement(DELETE);
-            pr.setLong(1, id);
-            pr.execute();
+            pr.setLong(Integer.parseInt("1"), id);
+            pr.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("There was a problem while doing the statement");
             throw new RuntimeException(e);
